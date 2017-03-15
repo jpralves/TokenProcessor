@@ -1,0 +1,21 @@
+##########################################################
+# Syntax Coloring Map For TokenProcessor
+##########################################################
+
+##########################################################
+# Datatypes (KEYWORD1)
+##########################################################
+
+TokenProcessor KEYWORD1
+
+##########################################################
+# Methods and Functions (KEYWORD2)
+##########################################################
+
+nextToken KEYWORD2
+clearBuffer KEYWORD2
+getCommand KEYWORD2
+process KEYWORD2
+Channel KEYWORD2
+processCommand KEYWORD2
+getCommand KEYWORD2
