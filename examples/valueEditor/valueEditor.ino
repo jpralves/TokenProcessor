@@ -36,7 +36,7 @@
 #endif
 
 #include "crc16.h"
-#include "tokenprocessor.h"
+#include "TokenProcessor.h"
 #include "kvstring.h"
 
 #define EEPROM_SIZE 1024
@@ -136,9 +136,6 @@ void setup() {
   defaultkvs.putKV("pass=cenas_PASS");
   defaultkvs.putKVs(F("wifi1=cenas1\nwifi2=testes2"));
   defaultkvs.putKVs("wifi3=cenas3\nwifi4=testes4");
-  kvl.putKV("pass=1234");
-  kvl.put("valor2", 12345);
-
 }
 
 void loop() {
@@ -162,7 +159,11 @@ void getHelp(TokenProcessor *cps) {
     cps->getCommand(i, cmd);
     cps->Channel()->print(cmd);
     cps->Channel()->print(" ");
+#if (defined(__AVR__))
     strcpy_P(buffer, (PGM_P)pgm_read_word(&(helpStrings[i])));
+#else
+    strcpy_P(buffer, (PGM_P)pgm_read_dword(&(helpStrings[i])));
+#endif
     cps->Channel()->print(buffer);
     if (i % 2 == 1) {
       cps->Channel()->println();
