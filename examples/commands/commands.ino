@@ -2,7 +2,7 @@
  * Filename: commands.ino
  * Description: Example for library TokenProcessor
  *
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Joao Alves <jpralves@gmail.com>
  * Required files: -
  * Required Libraries: TokenProcessor
@@ -10,6 +10,7 @@
  *
  * History:
  * 1.0.0 - 2017-03-14 - Initial Version
+ * 1.0.1 - 2017-04-26 - Corrected problem in getHelp (related to pgm_read and 32-bit addresses)
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -170,7 +171,11 @@ void getHelp(TokenProcessor *cps) {
     cps->getCommand(i, cmd);
     cps->Channel()->print(cmd);
     cps->Channel()->print(" ");
+#if (defined(__AVR__))
     strcpy_P(buffer, (PGM_P)pgm_read_word(&(helpStrings[i])));
+#else
+    strcpy_P(buffer, (PGM_P)pgm_read_dword(&(helpStrings[i])));
+#endif
     cps->Channel()->print(buffer);
     if (i % 2 == 1) {
       cps->Channel()->println();
